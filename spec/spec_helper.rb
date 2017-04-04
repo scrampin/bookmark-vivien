@@ -1,13 +1,34 @@
-
+ENV['RACK_ENV'] = 'test'
 require 'capybara/rspec'
 require './app/app.rb'
-# ENV['RACK_ENV'] = 'test'
-
+require 'database_cleaner'
 
 Capybara.app = BookmarkManager
 
 
+
 RSpec.configure do |config|
+
+  config.before(:each) do
+    DataMapper.setup(:default, "postgres://localhost/bookmark_manager_test")
+  end
+
+  config.after(:each) do
+    DataMapper.setup(:default, "postgres://localhost/bookmark_manager_development")
+  end
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.

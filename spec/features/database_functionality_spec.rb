@@ -2,9 +2,6 @@ require './app/models/link.rb'
 
 feature 'Vieweing links' do
 
-  after do
-    Link.destroy
-  end
 
   scenario 'saved links are displayed' do
     Link.create(url: 'http://www.makersacademy.com', title: 'Makers Academy')
