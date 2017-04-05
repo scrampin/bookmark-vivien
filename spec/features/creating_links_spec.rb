@@ -13,10 +13,12 @@ feature 'creating link' do
     visit('/links/new')
     fill_in('new_link', with: 'http://teaandkittens.com')
     fill_in('title', with: 'Tea and Kittens')
-    fill_in('tags', with: 'kitty')
+    fill_in('tags', with: 'kitty, squee, milkfirst')
     click_button("Submit link")
     link = Link.first
     expect(link.tags.map(&:name)).to include('kitty')
+    expect(link.tags.map(&:name)).to include('squee')
+    expect(link.tags.map(&:name)).to include('milkfirst')
   end
 
 end

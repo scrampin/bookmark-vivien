@@ -18,8 +18,8 @@ ENV["RACK_ENV"] ||= "development"
 
   post '/add_link' do
     link = Link.create(url: params[:new_link], title: params[:title])
-    tag = Tag.first_or_create(name: params[:tags])
-    link.tags << tag
+    tags = params[:tags].split(', ')
+    tags.each { |tag| link.tags << Tag.first_or_create(name: tag) }
     link.save
     redirect('/links')
   end
