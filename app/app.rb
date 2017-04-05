@@ -5,6 +5,7 @@ require_relative 'data_mapper_setup'
 
 class BookmarkManager < Sinatra::Base
 enable :sessions
+set :session_secret, 'super secret'
 
 
   get '/links' do
@@ -18,7 +19,7 @@ enable :sessions
   end
 
 
-  post '/add_link' do
+  post '/links' do
     link = Link.create(url: params[:new_link], title: params[:title])
     tags = params[:tags].split(', ')
     tags.each { |tag| link.tags << Tag.first_or_create(name: tag) }
