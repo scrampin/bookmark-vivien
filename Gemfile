@@ -6,6 +6,8 @@ gem "dm-migrations"
 gem 'sinatra'
 gem 'rake'
 gem 'bcrypt'
+gem 'heroku-rake'
+gem 'pry'
 
 group :test do
   gem "rspec"

@@ -3,6 +3,7 @@ require 'sinatra'
 require_relative 'data_mapper_setup'
 
 
+
 class BookmarkManager < Sinatra::Base
 enable :sessions
 set :session_secret, 'super secret'
@@ -38,8 +39,8 @@ set :session_secret, 'super secret'
   end
 
   post '/user' do
-    user = User.create(email: params[:email], password: params[:password])
-    session[:id] = user.id
+    user = User.create(email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation]) #if params[:password] == password_confirmation
+    session[:id] = user.id if user
     redirect('/links')
   end
 
