@@ -8,6 +8,7 @@ gem 'rake'
 gem 'bcrypt'
 gem 'heroku-rake'
 gem 'pry'
+gem 'sinatra-flash'
 
 group :test do
   gem "rspec"

@@ -1,5 +1,5 @@
 <form action='/user' method='post'>
-  Email: <input type='text' name='email' id='email'>
+  Email: <input type='text' name='email' id='email' value = '<%= @user.email %>'>
   Password: <input type='password' name='password' id='password'>
   Confirm Password: <input type='password' name='password_confirmation' id='password_confirmation'>
   <input type='submit' value='Submit'>
