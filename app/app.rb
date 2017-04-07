@@ -43,11 +43,14 @@ register Sinatra::Flash
 
   post '/user' do
     @user = User.create(email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation])
-    if params[:password] == params[:password_confirmation]
+    if @user.save
       session[:id] = @user.id
       redirect('/links')
-    else
+    elsif params[:password] != params[:password_confirmation]
       flash.now[:error] = "Your passwords did not match"
+      erb :'/user/new'
+    elsif !User.first(:email => (@user.email)).nil?
+      flash.now[:error] = "Email already registered"
       erb :'/user/new'
     end
   end
