@@ -19,5 +19,7 @@ class User
 
   attr_reader :password
   validates_confirmation_of :password
+  validates_format_of :email, :as => :email_address
+  validates_presence_of :email
 
 end

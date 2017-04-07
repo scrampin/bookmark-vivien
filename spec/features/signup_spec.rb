@@ -17,4 +17,19 @@ feature 'User is able to sign up' do
     expect(find_field('email').value).to eq('a@gmail.com')
   end
 
+  scenario 'user does not enter email' do
+    visit ('user/new')
+    fill_in('password', with: '1234')
+    fill_in('password_confirmation', with: '1234')
+    expect {click_button("Submit")}.to change(User, :count).by(0)
+  end
+
+  scenario 'user enters incorrectly formatted email' do
+    visit ('user/new')
+    fill_in('email', with: 'a.gmaom')
+    fill_in('password', with: '1234')
+    fill_in('password_confirmation', with: '1234')
+    expect {click_button("Submit")}.to change(User, :count).by(0)
+  end
+
 end
